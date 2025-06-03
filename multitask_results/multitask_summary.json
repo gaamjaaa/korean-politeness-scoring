@@ -1,0 +1,70 @@
+{
+  "approach": "Multitask Learning with Manual Labels",
+  "description": "Predict 7 feature scores + 1 overall score simultaneously",
+  "dataset_size": 362,
+  "input_features": [
+    "feat_ending",
+    "feat_strat_cnt",
+    "feat_indirect",
+    "feat_command",
+    "feat_attack",
+    "feat_power",
+    "feat_distance"
+  ],
+  "target_tasks": [
+    "feat_ending",
+    "feat_strat_cnt",
+    "feat_indirect",
+    "feat_command",
+    "feat_attack",
+    "feat_power",
+    "feat_distance",
+    "score"
+  ],
+  "cv_results": {
+    "feat_ending": {
+      "avg_mae": 0.0027777777777777775,
+      "avg_r2": 0.9947349177330895,
+      "std_r2": 0.01053016453382085
+    },
+    "feat_strat_cnt": {
+      "avg_mae": 0.005377248677248682,
+      "avg_r2": 0.9927843782339456,
+      "std_r2": 0.012496063597074152
+    },
+    "feat_indirect": {
+      "avg_mae": 0.0041235227766905766,
+      "avg_r2": 0.9883290734894796,
+      "std_r2": 0.02137657190768185
+    },
+    "feat_command": {
+      "avg_mae": 0.008323668188736678,
+      "avg_r2": 0.9864379867204551,
+      "std_r2": 0.02711992224134411
+    },
+    "feat_attack": {
+      "avg_mae": 0.004158485540334855,
+      "avg_r2": 0.9945738123688421,
+      "std_r2": 0.005745517994751124
+    },
+    "feat_power": {
+      "avg_mae": 0.003567995080452263,
+      "avg_r2": 0.9987942111635008,
+      "std_r2": 0.0012568766614014586
+    },
+    "feat_distance": {
+      "avg_mae": 0.0025736747571935923,
+      "avg_r2": 0.9896632360066306,
+      "std_r2": 0.014289142852985583
+    },
+    "score": {
+      "avg_mae": 0.7992097598299039,
+      "avg_r2": 0.3364230510886497,
+      "std_r2": 0.07964297916671292
+    }
+  },
+  "ko_test_generalization": {
+    "overall_score_mae": 1.2115565940561672,
+    "overall_score_r2": -1.8816308557362378
+  }
+}

@@ -486,7 +486,7 @@ class MultitaskTrainer:
             manual_score_mae = eval_results['manual']['score']['mae']
             tydip_score_mae = eval_results['tydip']['mae']
             
-            print(f"🔥 Train Loss: {train_loss:.4f}")
+            print(f" Train Loss: {train_loss:.4f}")
             print(f"📊 Quadratic Weighted Kappa: {quad_kappa_avg:.4f} (메인 지표)")
             print(f"📊 Accuracy: {accuracy_avg:.4f}, Adjacent Acc(±1): {adj_acc_avg:.4f}")
             print(f"📊 Ordinal MAE: {ordinal_mae_avg:.4f}")
@@ -558,12 +558,12 @@ class MultitaskTrainer:
     
     def aggregate_results(self, all_results):
         """K-fold 결과 집계 (순서형 분류 지표 중심)"""
-        print("\n🎓 === 학술적 성능 평가 결과 ===")
+        print("\n === 학술적 성능 평가 결과 ===")
         
         feature_names = list(all_results[0]['manual']['features'].keys())
         
         # 1. 메인 지표: Quadratic Weighted Kappa
-        print("\n🌟 === Quadratic Weighted Kappa (메인 지표) ===")
+        print("\n === Quadratic Weighted Kappa (메인 지표) ===")
         for feat_name in feature_names:
             kappa_scores = [result['manual']['features'][feat_name]['quad_kappa'] for result in all_results]
             print(f"{feat_name}: {np.mean(kappa_scores):.3f} ± {np.std(kappa_scores):.3f}")
@@ -622,12 +622,7 @@ class MultitaskTrainer:
         print(f"Manual Score MAE: {np.mean(manual_maes):.3f} ± {np.std(manual_maes):.3f}")
         print(f"TyDiP Score MAE: {np.mean(tydip_maes):.3f} ± {np.std(tydip_maes):.3f}")
         
-        # 5. 교수님께 보고할 핵심 요약
-        print(f"\n🎓 === 교수님 보고용 핵심 요약 ===")
-        print(f"✨ Quadratic Weighted Kappa: {np.mean(all_kappa_scores):.3f} (순서형 분류 표준 지표)")
-        print(f"✨ Adjacent Accuracy (±1): {np.mean(all_adj_acc_scores):.3f} (실용적 허용 성능)")  
-        print(f"✨ Final Score MAE: {np.mean(manual_maes):.3f}점 (실제 활용 가능성)")
-        print(f"✨ 해석: 공손도는 순서형 변수로, 1단계 차이는 실용적으로 허용 가능한 범위입니다.")
+        
     
     def final_evaluation(self, val_indices):
         """최종 홀드아웃 평가 (Quadratic Weighted Kappa 기준)"""
@@ -689,14 +684,7 @@ class MultitaskTrainer:
                 print(f"  Adjacent Acc: {metrics['adjacent_acc']:.3f}")
                 print(f"  Accuracy: {metrics['accuracy']:.3f}")
                 print(f"  F1 Macro: {metrics['f1_macro']:.3f}")
-            
-            # 최종 교수님 보고용 요약
-            print(f"\n🎓 === 논문/보고서용 최종 요약 ===")
-            print(f"\"공손도 피처 분류에서 Quadratic Weighted Kappa {quad_kappa_avg:.3f}을 달성하여")
-            print(f"순서형 분류 관점에서 양호한 성능을 보였습니다.")
-            print(f"특히 ±1 허용 정확도 {adj_acc_avg:.3f}과 최종 스코어 MAE {final_results['manual']['score']['mae']:.3f}점으로")
-            print(f"실용적 활용이 충분히 가능한 수준입니다.\"")
-            
+    
             return final_results
     
     def quadratic_weighted_kappa(self, y_true, y_pred, num_classes):

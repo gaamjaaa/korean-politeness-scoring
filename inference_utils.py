@@ -26,15 +26,15 @@ class PolitenessAnalyzer:
             dropout_rate=config['dropout_rate']
         ).to(self.device)
         
-        checkpoint = torch.load(model_path, map_location=self.device)
+        checkpoint = torch.load(model_path, map_location=self.device, weights_only=False)
         self.model.load_state_dict(checkpoint['model_state_dict'])
         self.model.eval()
         
-        # 피처 이름과 설명
+        # 피처 이름과 설명 (클래스 3 → 2 병합 반영)
         self.feature_info = {
             'feat_ending': {
                 'name': '어미',
-                'classes': ['반말/비격식', '격식적 어미', '존댓말', '최고 존댓말'],
+                'classes': ['반말/비격식', '격식적 어미', '존댓말 (최고 존댓말 포함)'],
                 'description': '문장 종결 어미의 격식도'
             },
             'feat_strat_cnt': {
@@ -44,22 +44,22 @@ class PolitenessAnalyzer:
             },
             'feat_command': {
                 'name': '명령성',
-                'classes': ['서술/질문', '제안/요청', '지시/명령', '강한 명령'],
+                'classes': ['서술/질문', '제안/요청', '지시/명령 (강한 명령 포함)'],
                 'description': '화행의 명령성 정도'
             },
             'feat_attack': {
                 'name': '공격성',
-                'classes': ['중립', '가벼운 비판', '직접적 비판', '강한 공격'],
+                'classes': ['중립', '가벼운 비판', '직접적 비판 (강한 공격 포함)'],
                 'description': '언어적 공격성 수준'
             },
             'feat_power': {
                 'name': '권력거리',
-                'classes': ['동등', '약간 상하관계', '명확한 상하관계', '강한 권력관계'],
+                'classes': ['동등', '약간 상하관계', '명확한 상하관계 (강한 권력관계 포함)'],
                 'description': '화자와 청자 간 권력 관계'
             },
             'feat_distance': {
                 'name': '사회적 거리',
-                'classes': ['가까움', '보통', '격식적', '매우 격식적'],
+                'classes': ['가까움', '보통', '격식적 (매우 격식적 포함)'],
                 'description': '화자와 청자 간 사회적 거리'
             },
             'feat_indirect': {
